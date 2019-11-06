@@ -1,0 +1,1521 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Hello World App
+# during dev, should point to your local machine
+#host: localhost
+host: localhost:10010
+# basePath prefixes all resource paths
+basePath: /
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+
+  /censos:
+    x-swagger-router-controller: analiticafin.compute.controller
+    get:
+      description: get the game system list
+      operationId: getCensos
+      parameters:
+        - name: entidad 
+          in: query
+          type: string
+          required: true
+        - name: municipio
+          in: query
+          type: string
+          required: true
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetCensoListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /internet:
+    x-swagger-router-controller: analiticafin.compute.controller
+    get:
+      description: get the game system list
+      operationId: getInternetbyMun
+      parameters:
+        - name: entidad
+          in: query
+          type: string
+          required: true
+        - name: municipio
+          in: query
+          type: string
+          required: true
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetInternetResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /idh:
+    x-swagger-router-controller: analiticafin.compute.controller
+    get:
+      description: get the game system list
+      operationId: getIdhbyMun
+      parameters:
+        - name: entidad
+          in: query
+          type: string
+          required: true
+        - name: municipio
+          in: query
+          type: string
+          required: true
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetIdhResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /denues:
+    x-swagger-router-controller: analiticafin.compute.controller
+    get:
+      description: get the game system list
+      operationId: getGameSystems
+      parameters:
+        - name: entidad
+          in: query
+          type: string
+          required: true
+        - name: municipio
+          in: query
+          type: string
+          required: true
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetGameSystemListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /entidades:
+    x-swagger-router-controller: analiticafin.compute.controller
+    get:
+      description: get the game system list
+      operationId: getEntidades
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetEntidadListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /municipios:
+    x-swagger-router-controller: analiticafin.compute.controller
+    get:
+      description: get the game system list
+      operationId: getMunicipios
+      parameters:
+        - name: entidad
+          in: query
+          type: string
+          required: true
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetMunicipioListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+ 
+ 
+
+
+
+  /ols:
+    x-swagger-router-controller: analiticafin.compute.controller
+    get:
+      description: get the game system list
+      operationId: getOls
+      parameters:
+        - name: entidad
+          in: query
+          type: string
+          required: true
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetMunicipioListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /medicos:
+    x-swagger-router-controller: epivector.medico.controller
+    
+    get:
+      operationId: getMedicos
+      description: Retorna la lista de entidades
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/MedicoList"
+        default:
+          description: Error
+          schema: 
+            $ref: "#/definitions/ErrorResponse"    
+            
+            
+    post:
+      description: Agrega una nueva entidad
+      parameters:
+        - in: body
+          name: entidad
+          schema:
+            $ref: "#/definitions/Medico"
+      operationId: createMedicos
+      responses: 
+        "201":
+          description: success
+          schema:
+            $ref: "#/definitions/MedicoResponse"
+        default:
+          description: Error
+          schema: 
+            $ref: "#/definitions/ErrorResponse"
+            
+  /medicos/{id}:
+    x-swagger-router-controller: epivector.medico.controller
+    
+    get: 
+      description: Retorna una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path
+          required: true
+      operationId: getMedicosById
+      responses:
+        "200":
+          description: success
+          schema:
+           $ref: "#/definitions/MedicoResponse"
+        default:
+          description: Error
+          schema: 
+            $ref: "#/definitions/ErrorResponse"
+            
+    put:
+      description: Actualiza una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: entidad
+          schema:
+            $ref: "#/definitions/Medico"
+      operationId: updateMedicos
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/MedicoResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    
+    delete:
+      description: Borra una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path 
+          required: true
+      operationId: deleteMedicos
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/DeleteResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"                
+
+        
+            
+            
+  /umf:
+    x-swagger-router-controller: epivector.umf.controller
+    
+    get:
+      operationId: getUmf
+      description: Retorna la lista de entidades
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/UmfList"
+        default:
+          description: Error
+          schema: 
+            $ref: "#/definitions/ErrorResponse"          
+                      
+    post:
+      description: Agrega una nueva entidad
+      parameters:
+        - in: body
+          name: entidad
+          schema:
+            $ref: "#/definitions/Umf"
+      operationId: createUmf
+      responses: 
+        "201":
+          description: success
+          schema:
+            $ref: "#/definitions/UmfResponse"
+        default:
+          description: Error
+          schema: 
+            $ref: "#/definitions/ErrorResponse"
+            
+  /umfs/{id}:
+    x-swagger-router-controller: epivector.umf.controller
+    
+    get: 
+      description: Retorna una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path
+          required: true
+      operationId: getUmfId
+      responses:
+        "200":
+          description: success
+          schema:
+           $ref: "#/definitions/UmfResponse"
+        default:
+          description: Error
+          schema: 
+            $ref: "#/definitions/ErrorResponse"
+            
+    put:
+      description: Actualiza una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: entidad
+          schema:
+            $ref: "#/definitions/Umf"
+      operationId: updateUmf
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/UmfResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    
+    delete:
+      description: Borra una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path 
+          required: true
+      operationId: deleteUmf
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/DeleteResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"                
+        
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+    
+       
+
+  /embarazadas:
+    x-swagger-router-controller: epivector.embarazada.controller
+
+    get:
+      operationId: getEmbarazadas
+      description: Retorna la lista de entidades
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/EmbarazadaList"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+
+
+    post:
+      description: Agrega una nueva entidad
+      parameters:
+        - in: body
+          name: entidad
+          schema:
+            $ref: "#/definitions/Embarazada"
+      operationId: createEmbarazada
+      responses:
+        "201":
+          description: success
+          schema:
+            $ref: "#/definitions/EmbarazadaResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /embarazadas/{id}:
+    x-swagger-router-controller: epivector.embarazada.controller
+
+    get:
+      description: Retorna una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path
+          required: true
+      operationId: getEmbarazadaById
+      responses:
+        "200":
+          description: success
+          schema:
+           $ref: "#/definitions/EmbarazadaResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    put:
+      description: Actualiza una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: entidad
+          schema:
+            $ref: "#/definitions/Embarazada"
+      operationId: updateEmbarazada
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/EmbarazadaResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+    delete:
+      description: Borra una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path
+          required: true
+      operationId: deleteEmbarazada
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/DeleteResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+ 
+   
+  /fichagenerals:
+    x-swagger-router-controller: epivector.fichageneral.controller
+    
+    get:
+      operationId: getFichaGeneral
+      description: Retorna la lista de entidades
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/fichageneralList"
+        default:
+          description: Error
+          schema: 
+            $ref: "#/definitions/ErrorResponse" 
+            
+    post:
+      description: Agrega una nueva entidad
+      parameters:
+        - in: body
+          name: entidad
+          schema:
+            $ref: "#/definitions/fichageneral"
+      operationId: createFichaGeneral
+      responses: 
+        "201":
+          description: success
+          schema:
+            $ref: "#/definitions/fichaResponse"
+        default:
+          description: Error
+          schema: 
+            $ref: "#/definitions/ErrorResponse"
+        
+  /fichageneral/{id}:
+    x-swagger-router-controller: epivector.fichageneral.controller
+    
+    get: 
+      description: Retorna una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path
+          required: true
+      operationId: getFichaGeneralId
+      responses:
+        "200":
+          description: success
+          schema:
+           $ref: "#/definitions/fichaResponse"
+        default:
+          description: Error
+          schema: 
+            $ref: "#/definitions/ErrorResponse"            
+            
+            
+    put:
+      description: Actualiza una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: entidad
+          schema:
+            $ref: "#/definitions/fichageneral"
+      operationId: updateFichaGeneral
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/fichaResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"      
+            
+    delete:
+      description: Borra una entidad
+      parameters:
+        - name: id
+          description: Identificador de la entidad
+          type: string
+          in: path 
+          required: true
+      operationId: deleteFichaGeneral
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/DeleteResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"                
+        
+            
+            
+            
+            
+            
+ 
+ 
+ 
+
+
+
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  
+  GetInternetResponse:
+    type: object
+    properties:
+      #id:
+      #  type: string
+      #  description: identifier
+      entidad:
+        type: string
+        description: Name of the Game System
+      municipio:
+        type: string
+        description: Description of the Game System
+      habitadas:
+        type: string
+        description: gps latitud
+      viviendas_con_computadora:
+        type: string
+        description: gps longitud
+      viviendas_acceso_internet:
+        type: string
+        description: gps longitud
+      cve_ent:
+        type: string
+        description: gps longitud
+      cve_mun:
+        type: string
+        description: gps longitud
+
+
+  GetIdhResponse:
+    type: object
+    properties:
+      #id:
+      #  type: string
+      #  description: identifier
+      entidad:
+        type: string
+        description: Name of the Game System
+      municipio:
+        type: string
+        description: Description of the Game System
+      promedio_escolaridad:
+        type: string
+        description: gps latitud
+      escolaridad_esperada:
+        type: string
+        description: gps longitud
+      ipc_usd:
+        type: string
+        description: gps longitud
+      cve_ent:
+        type: string
+        description: gps longitud
+      cve_mun:
+        type: string
+        description: gps longitud
+      mortalidad_infantil:
+        type: string
+        description: gps longitud
+      indice_educacion:
+        type: string
+        description: gps longitud
+      indice_ingreso:
+        type: string
+        description: gps longitud
+      indice_salud:
+        type: string
+        description: gps longitud
+      idh:
+        type: string
+        description: gps longitud
+
+
+  GameSystem:
+    type: object
+    properties:
+      nom_estab:
+        type: string
+        description: Name of the Game System
+      nom_vial:
+        type: string
+        description: Description of the Game System
+      image:
+        type: string
+        format: byte
+    required:
+      - nom_estab
+
+  GetGameSystemResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        description: identifier
+      nom_estab:
+        type: string
+        description: Name of the Game System
+      nom_vial:
+        type: string
+        description: Description of the Game System
+      latitud:
+        type: string
+        description: gps latitud
+      longitud:
+        type: string
+        description: gps longitud
+
+
+  GetGameSystemListResponse:
+    required:
+      - gamesystems
+    properties:
+      gamesystems:
+        type: array
+        items:
+          $ref: "#/definitions/GetGameSystemResponse"
+
+  GetCensoResponse:
+    type: object
+    properties:
+      #   id:
+      #      type: string
+      #      description: identifier
+      entidad:
+        type: string
+        description: Name of the Game System
+      municipio:
+        type: string
+        description: Description of the Game System
+      actividad_economica:
+        type: string
+        description: gps latitud
+      ue:
+        type: string
+        description: gps longitud
+
+
+  GetCensoListResponse:
+    required:
+      - gamesystems
+    properties:
+      gamesystems:
+        type: array
+        items:
+          $ref: "#/definitions/GetCensoResponse"
+
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      code:
+        type: number
+      message:
+        type: string
+      description:
+        type: string
+  #  GeneralResponse:
+  #    type: object
+  #    properties:
+  #      success:
+  #        type: number
+  #        description: returns 1 if successful
+  #      description:
+  #        type: string
+  #        description: a short comment
+  #    required:
+  #      - success
+  #      - description
+  GeneralResponse:
+    type: object
+    properties:
+      message:
+        type: string
+    required:
+      - message
+  VideoGame:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the game
+      developer:
+        type: string
+        description: Developer/Publisher of the game
+      gamesystem:
+        type: string
+        description: Name of the game system
+      genre:
+        type: string
+        description: Name of the genre/style of the game
+      year:
+        type: number
+        description: Release year
+      image:
+        type: string
+        format: byte
+    required:
+      - name
+      - developer
+      - gamesystem
+      - genre
+      - year
+  GetMunicipioResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        description: identifier
+      cve_mun:
+        type: string
+        description: Name of the game
+      municipio:
+        type: string
+        description: Developer of the game
+
+  GetMunicipioListResponse:
+    required:
+      - videogames
+    properties:
+      videogames:
+        type: array
+        items:
+          $ref: "#/definitions/GetMunicipioResponse"
+
+  GetEntidadResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        description: identifier
+      cve_ent:
+        type: string
+        description: Name of the game
+      entidad:
+        type: string
+        description: Developer of the game
+
+  GetEntidadListResponse:
+    required:
+      - videogames
+    properties:
+      videogames:
+        type: array
+        items:
+          $ref: "#/definitions/GetEntidadResponse"
+          
+
+
+ 
+  Medico:
+    type: object
+    properties:
+      nombre: 
+        type: string
+        description: El nombre o nombres del medico
+      apellido_p:
+        type: string
+        description: Apellido paterno del medico
+      apellido_m:
+        type: string
+        description: Apellido materno del medico
+      unidad_medica:
+        type: number
+        description: El id de la unidad medica
+
+
+
+  MedicoResponse:
+    type: object
+    properties:
+      id: 
+        type: number
+        description: Identifier
+      nombre: 
+        type: string
+        description: El nombre o nombres del medico
+      apellido_p:
+        type: string
+        description: Apellido paterno del medico
+      apellido_m:
+        type: string
+        description: Apellido materno del medico
+      unidad_medica:
+        type: number
+        description: El id de la unidad medica
+        
+  MedicoList:
+    properties:
+      medicos:
+        type: array
+        items:
+          $ref: "#/definitions/MedicoResponse"
+    required:
+      - medicos
+        
+      
+  
+  Embarazada:
+    type: object
+    properties:
+      imc:
+        type: number
+        format: double
+      escolaridad:
+        type: string
+      semanas_de_gestacion:
+        type: number
+      gestas:
+        type: number
+      paras:
+        type: number
+      abortos:
+        type: number
+      cesareas:
+        type: number
+      f_ultima_mestruacion:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_probable_de_parto:
+        type: string
+        format: date
+        example: "2017-01-01"
+      antecedente_cirugia_uterina:
+        type: boolean
+      antecedentes_perinatales:
+        type: boolean
+      periodo_intergenesico:
+        type: boolean
+      primer_embarazo_o_mas_de_cuatro:
+        type: boolean
+      antecedentes_de_dos_o_mas_abortos_espontaneos:
+        type: boolean
+      antecedente_cesarea:
+        type: boolean
+      preeclampsia:
+        type: boolean
+      eclampsia: 
+        type: boolean
+      obito_fetal:
+        type: boolean
+      bajo_peso_al_nacer:
+        type: boolean
+      prematurez:
+        type: boolean
+      macrosomia:
+        type: boolean
+      malformacion_congenita:
+        type: boolean
+      sangrado_tercer_trimestre:
+        type: boolean
+      polihidramnios:
+        type: boolean
+      embarazo_ectopico:
+        type: boolean
+      enfermedad_trofoblastica_gestacional:
+        type: boolean
+      hipertencion_arterial:
+        type: boolean
+      diabetes_mellitus:
+        type: boolean
+      cardiopatia_congenita_o_adquirida:
+        type: boolean
+      tiroidopatias:
+        type: boolean
+      enfermedades_autoinmunes_o_de_la_colagena:
+        type: boolean
+      enfermedad_tromboembolica:
+        type: boolean
+      accidente_vascular_cerebral:
+        type: boolean
+      neumopatias:
+        type: boolean
+      tuberculosis:
+        type: boolean
+      hepatopatias:
+        type: boolean
+      cancer_de_mama:
+        type: boolean
+      cancer_cervico_uterino:
+        type: boolean
+      cancer_otros_organos:
+        type: boolean
+      nefropatias: 
+        type: boolean
+      epilepsia:
+        type: boolean
+      neuropatia_cronica:
+        type: boolean
+      hematologicas:
+        type: boolean
+      enfermedad_isquemica_miocardica:
+        type: boolean
+      discapacidad_fisica_mental:
+        type: boolean
+      seropositivo_vih_sida:
+        type: boolean                                   
+      alcoholismo:
+        type: boolean
+      tabaquismo:
+        type: boolean
+      drogadiccion:
+        type: boolean
+      adicciones:
+        type: boolean
+      f_primera_atencion:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_a_trabajo_social:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_ultima_cita:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_proxima_cita:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_a_cph:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_a_ginecologia:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_de_resolucion_embarazo:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_de_entrega_pulsera_rosa:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_vacula_de_influenza:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_vacula_de_tdpa:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_primera_prueba_vih:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_segunda_prueba_vih:
+        type: string
+        format: date
+        example: "2017-01-01"
+      fue_reactiva_alguna_prueba_vih:
+        type: boolean
+      ivu:
+        type: string
+      ir: 
+        type: string
+      
+  EmbarazadaResponse:
+    type: object
+    properties:
+      id:
+        type: number
+      imc:
+        type: number
+        format: double
+      escolaridad:
+        type: string
+      semanas_de_gestacion:
+        type: number
+      gestas:
+        type: number
+      paras:
+        type: number
+      abortos:
+        type: number
+      cesareas:
+        type: number
+      f_ultima_mestruacion:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_probable_de_parto:
+        type: string
+        format: date
+        example: "2017-01-01"
+      antecedente_cirugia_uterina:
+        type: boolean
+      antecedentes_perinatales:
+        type: boolean
+      periodo_intergenesico:
+        type: boolean
+      primer_embarazo_o_mas_de_cuatro:
+        type: boolean
+      antecedentes_de_dos_o_mas_abortos_espontaneos:
+        type: boolean
+      antecedente_cesarea:
+        type: boolean
+      preeclampsia:
+        type: boolean
+      eclampsia: 
+        type: boolean
+      obito_fetal:
+        type: boolean
+      bajo_peso_al_nacer:
+        type: boolean
+      prematurez:
+        type: boolean
+      macrosomia:
+        type: boolean
+      malformacion_congenita:
+        type: boolean
+      sangrado_tercer_trimestre:
+        type: boolean
+      polihidramnios:
+        type: boolean
+      embarazo_ectopico:
+        type: boolean
+      enfermedad_trofoblastica_gestacional:
+        type: boolean
+      hipertencion_arterial:
+        type: boolean
+      diabetes_mellitus:
+        type: boolean
+      cardiopatia_congenita_o_adquirida:
+        type: boolean
+      tiroidopatias:
+        type: boolean
+      enfermedades_autoinmunes_o_de_la_colagena:
+        type: boolean
+      enfermedad_tromboembolica:
+        type: boolean
+      accidente_vascular_cerebral:
+        type: boolean
+      neumopatias:
+        type: boolean
+      tuberculosis:
+        type: boolean
+      hepatopatias:
+        type: boolean
+      cancer_de_mama:
+        type: boolean
+      cancer_cervico_uterino:
+        type: boolean
+      cancer_otros_organos:
+        type: boolean
+      nefropatias: 
+        type: boolean
+      epilepsia:
+        type: boolean
+      neuropatia_cronica:
+        type: boolean
+      hematologicas:
+        type: boolean
+      enfermedad_isquemica_miocardica:
+        type: boolean
+      discapacidad_fisica_mental:
+        type: boolean
+      seropositivo_vih_sida:
+        type: boolean                                   
+      alcoholismo:
+        type: boolean
+      tabaquismo:
+        type: boolean
+      drogadiccion:
+        type: boolean
+      adicciones:
+        type: boolean
+      f_primera_atencion:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_a_trabajo_social:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_ultima_cita:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_proxima_cita:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_a_cph:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_a_ginecologia:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_de_resolucion_embarazo:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_de_entrega_pulsera_rosa:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_vacula_de_influenza:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_vacula_de_tdpa:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_primera_prueba_vih:
+        type: string
+        format: date
+        example: "2017-01-01"
+      f_envio_segunda_prueba_vih:
+        type: string
+        format: date
+        example: "2017-01-01"
+      fue_reactiva_alguna_prueba_vih:
+        type: boolean
+      ivu:
+        type: string
+      ir: 
+        type: string
+        
+        
+  EmbarazadaList:
+    properties:
+      embarazadas:
+        type: array
+        items:
+          $ref: "#/definitions/EmbarazadaResponse"
+    required:
+      - embarazadas
+        
+  
+  DeleteResponse:
+    type: object
+    properties:
+      success:
+        type: number
+        description: Retorna 1 en caso de exito
+      description:
+        type: string
+        description: Comentario
+    required:
+      - success
+      - description
+      
+      
+  fichageneral:
+    type: object
+    properties:
+      folio:
+        type: number
+        description: El folio  de la persona
+      consultorio:
+        type: number
+        description: el comsultorio a asignar ala persona
+      turno:
+        type: number
+        description: el turno a asignar
+      nss:
+        type: number
+        description: numero de seguro social
+      agregado:
+        type: integer
+        description: agregado
+      apellido_p:
+        type: string
+        description: apellido de la persona
+      apellido_m:
+        type: string
+        description: apellido materno
+      nombres:
+        type: string
+        description: nombre de la persona
+      fechadeNacimiento:
+        type: string
+        description: fecha nacimiento
+      numeroExterior:
+        type: number
+        description: numero exterior
+      numeroInterior: 
+        type: number
+        description: numero interior
+      calle:
+        type: string
+        description: calle
+      Entrecalle:
+        type: string
+        description: entre calle
+      Ycalle:
+        type: string
+        description: y calle
+      localidad:
+        type: string
+        description: localidad
+      municipio:
+        type: string
+        description: municipio
+      estado:
+        type: string
+        description: estado
+      codigoPostal:
+        type: number
+        description: codigo
+      edad:
+        type: number
+        description: edad
+      peso:
+        type: number
+        description: peso
+      estatura:
+        type: number
+        description: estatura
+
+      
+  
+  fichaResponse:
+
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier
+      folio:
+        type: number
+        description: El folio  de la persona
+      consultorio:
+        type: number
+        description: el comsultorio a asignar ala persona
+      turno:
+        type: number
+        description: el turno a asignar
+      nss:
+        type: number
+        description: numero de seguro social
+      agregado:
+        type: integer
+        description: agregado
+      apellido_p:
+        type: string
+        description: apellido de la persona
+      apellido_m:
+        type: string
+        description: apellido materno
+      nombres:
+        type: string
+        description: nombre de la persona
+      fechadeNacimiento:
+        type: string
+        description: fecha nacimiento
+      numeroExterior:
+        type: number
+        description: numero exterior
+      numeroInterior: 
+        type: number
+        description: numero interior
+      calle:
+        type: string
+        description: calle
+      Entrecalle:
+        type: string
+        description: entre calle
+      Ycalle:
+        type: string
+        description: y calle
+      localidad:
+        type: string
+        description: localidad
+      municipio:
+        type: string
+        description: municipio
+      estado:
+        type: string
+        description: estado
+      codigoPostal:
+        type: number
+        description: codigo
+      edad:
+        type: number
+        description: edad
+      peso:
+        type: number
+        description: peso
+      estatura:
+        type: number
+        description: estatura
+
+
+  fichageneralList:
+    properties:
+      fichageneral:
+        type: array
+        items:
+          $ref: "#/definitions/fichaResponse"
+    required:
+      - fichageneral
+        
+  
+  Umf:
+    type: object
+    properties:
+      instalación:
+        type: string
+        description: el tipo de instancia
+      tipo_de_instalación: 
+        type: string
+        description: tipo de instancia familiar
+      tipo_de_unidad:
+        type: string
+        description: tipo de unidad medica
+      dirección:
+        type: string
+        description: direccion de la unidad umf
+      entre_calles:
+        type: string
+        description: direccion entre calles
+      teléfono:
+        type: number
+        description: telefono de la instancia
+      horario_de_atención:
+        type: string
+        description: horario de atencion
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  UmfResponse:
+    type: object
+    properties:
+      instalación:
+        type: string
+        description: el tipo de instancia
+      tipo_de_instalación: 
+        type: string
+        description: tipo de instancia familiar
+      tipo_de_unidad:
+        type: string
+        description: tipo de unidad medica
+      dirección:
+        type: string
+        description: direccion de la unidad umf
+      entre_calles:
+        type: string
+        description: direccion entre calles
+      teléfono:
+        type: number
+        description: telefono de la instancia
+      horario_de_atención:
+        type: string
+        description: horario de atencion
+        
+  UmfList:
+    properties:
+      umf:
+        type: array
+        items:
+          $ref: "#/definitions/UmfResponse"
+    required:
+      - umf
+
+
+  
